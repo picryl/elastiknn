@@ -45,7 +45,7 @@ clean:
 	touch $@
 
 .mk/gradle-publish-local: version $(src_all)
-	$(gradle) assemble publishToMavenLocal -x :api4s:signMavenPublication -x :client-elastic4s:signMavenPublication -x :lucene:signMavenPublication -x :models:signMavenPublication
+	$(gradle) assemble publishToMavenLocal
 	touch $@
 
 .mk/client-python-publish-local: version .mk/client-python-install
@@ -84,7 +84,7 @@ run/debug:
 	$(gradle) :plugin:run $(shell cat .esopts | xargs) --debug-jvm
 
 run/kibana:
-	docker run --network host -e ELASTICSEARCH_HOSTS=http://localhost:9200 -p 5601:5601 -d --rm kibana:7.9.2
+	docker run --network host -e ELASTICSEARCH_HOSTS=http://localhost:9200 -p 5601:5601 -d --rm kibana:7.6.2
 	docker ps | grep kibana
 
 run/demo: .mk/gradle-publish-local .mk/example-demo-sbt-docker-stage .mk/example-demo-sbt-docker-stage .mk/vm-max-map-count

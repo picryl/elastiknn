@@ -2,8 +2,8 @@ import javax.swing.table.DefaultTableCellRenderer
 
 buildscript {
     ext {
-        esVersion = '7.9.2'
-        luceneVersion = '8.6.2'
+        esVersion = '7.6.2'
+        luceneVersion = '8.4.0'
         circeVersion= '0.13.0'
         scalaShortVersion = '2.12'
         scalaFullVersion = '2.12.10'
@@ -26,7 +26,7 @@ buildscript {
 allprojects {
 
     setGroup('com.klibisz.elastiknn')
-    setVersion(rootProject.file('version').getText().trim())
+    setVersion(rootProject.file('version').getText().strip())
 
     repositories {
         jcenter()
@@ -126,7 +126,7 @@ def publishConfig(String projectDescription, boolean isScala = false) {
         ext."sonatypePassword" = project.hasProperty("sonatypePassword") ? project.getProperty("sonatypePassword") : "wrong"
 
         apply plugin: 'maven-publish'
-        apply plugin: 'signing'
+        // apply plugin: 'signing'
         task sourceJar(type: Jar) {
             classifier 'sources'
             from sourceSets.main.allSource
@@ -177,9 +177,6 @@ def publishConfig(String projectDescription, boolean isScala = false) {
                     }
                 }
             }
-        }
-        signing {
-            sign publishing.publications
         }
     }
 }
