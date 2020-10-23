@@ -45,7 +45,7 @@ clean:
 	touch $@
 
 .mk/gradle-publish-local: version $(src_all)
-	$(gradle) assemble publishToMavenLocal
+	$(gradle) assemble publishToMavenLocal -x :api4s:signMavenPublication -x :client-elastic4s:signMavenPublication -x :lucene:signMavenPublication -x :models:signMavenPublication
 	touch $@
 
 .mk/client-python-publish-local: version .mk/client-python-install
